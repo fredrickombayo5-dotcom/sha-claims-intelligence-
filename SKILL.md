@@ -58,10 +58,24 @@ available; the rule logic should not need to change.
   from (SHA benefit package docs vs. learned from historical claims)
 - Single-facility vs. multi-tenant architecture
 
+## ADK Tool & Agent Step: Claims Risk Engine
+
+The rule engine has been implemented as a script tool at [rule_engine.py](file:///c:/Users/hp/Downloads/sha-claims-agent-skill-extracted/sha-claims-agent-skill/scripts/rule_engine.py). This tool is designed to be directly imported or invoked by the agent to process batches of claims.
+
+### Tool Signatures
+
+- **`evaluate_claims(input_csv_path: str, output_csv_path: str) -> str`**
+  - **Description**: Ingests a CSV claims export, evaluates each claim against the 3 rejection-risk rules, and writes a risk-scored CSV output.
+  - **Returns**: A JSON string containing summary stats (`{"status": "success", "total_claims": 40, "distribution": {"Clean": 16, "At Risk": 20, "High Risk": 4}}`).
+
+- **CLI Usage**:
+  You can run the script directly using Python:
+  ```powershell
+  python scripts/rule_engine.py <input_csv> <output_csv>
+  ```
+
 ## Suggested next steps for this agent in Antigravity/ADK
-1. Reimplement or wrap `rule_engine_reference.py` as an ADK tool/agent step
-2. Add an ingestion step that reads a KenyaEMR CSV export (schema TBD — ask the
-   user for a real sample before hardcoding field names)
-3. Wire output to a table Tableau can read directly
-4. Keep the rule engine deterministic and explainable — finance officers need
-   to see *why* a claim was flagged, not just a risk score
+1. Add an ingestion step that reads a KenyaEMR CSV export (schema TBD — ask the user for a real sample before hardcoding field names)
+2. Wire output to a table Tableau can read directly
+3. Keep the rule engine deterministic and explainable — finance officers need to see *why* a claim was flagged, not just a risk score
+
