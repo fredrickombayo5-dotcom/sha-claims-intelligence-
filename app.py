@@ -5,7 +5,7 @@ import pandas as pd
 import streamlit as st
 
 # Dynamically add the skill scripts directory to sys.path to import rule_engine
-sys.path.append(os.path.join(os.path.dirname(__file__), "sha-claims-agent-skill", "scripts"))
+sys.path.append(os.path.join(os.path.dirname(__file__),  "scripts"))
 try:
     import rule_engine
 except ImportError:
@@ -181,7 +181,7 @@ with st.sidebar:
     )
     
     # Provide sample claims data download link
-    sample_claims_path = os.path.join(os.path.dirname(__file__), "sha-claims-agent-skill", "reference", "sample_claims.csv")
+    sample_claims_path = os.path.join(os.path.dirname(__file__), "reference", "sample_claims.csv")
     if os.path.exists(sample_claims_path):
         with open(sample_claims_path, "r") as f:
             sample_csv_data = f.read()
